@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Strapi from 'strapi-sdk-javascript/build/main';
-import { Container, Box, Heading, Image, Card, Text, SearchField, Icon } from 'gestalt';
+import { Container, Box, Heading, Image, Card, Text, SearchField, Icon, Spinner } from 'gestalt';
 import { Link } from 'react-router-dom';
 
 import './App.css';
@@ -10,7 +10,7 @@ const strapi = new Strapi(apiUrl);
 
 class App extends Component {
 
-  state = { brands: [], searchTerm: '', filteredBrands: [] };
+  state = { brands: [], searchTerm: '', loadingBrands: true };
 
   async componentDidMount() {
     try {
@@ -32,10 +32,11 @@ class App extends Component {
           `
         }
       });
-      this.setState({ brands: data.brands });
+      this.setState({ brands: data.brands, loadingBrands: false });
     } catch (err) {
-      console.log(err);
       /* handle error */
+      console.log(err);
+      this.setState({ loadingBrands: false });
     }
   }
 
@@ -43,7 +44,7 @@ class App extends Component {
     this.setState({ searchTerm: value });
   }
 
-  filterBrands = ({ brands, filteredBrands, searchTerm }) => {
+  filterBrands = ({ brands, searchTerm }) => {
     return brands.filter(({ name, description }) => {
       name = name.toLowerCase();
       description = description.toLowerCase();
@@ -53,7 +54,7 @@ class App extends Component {
   }
 
   render() {
-    const { searchTerm } = this.state;
+    const { searchTerm, loadingBrands } = this.state;
     return (
       <Container>
         {/* Brands Search Field */}
@@ -127,6 +128,8 @@ class App extends Component {
             </Box>
           ))}
         </Box>
+
+        <Spinner show={loadingBrands} accessibilityLabel="Loading Spinner" />
 
       </Container>
     );
