@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import Strapi from 'strapi-sdk-javascript/build/main';
-import { Container, Box, Heading, Image, Card, Text, SearchField, Icon, Spinner } from 'gestalt';
+import { Container, Box, Heading, Image, Card, Text, SearchField, Icon } from 'gestalt';
 import { Link } from 'react-router-dom';
 
+import Loader from './Loader';
 import './App.css';
 
 const apiUrl = process.env.API_URL || 'http://localhost:1337';
@@ -129,7 +130,7 @@ class App extends Component {
           ))}
         </Box>
 
-        <Spinner show={loadingBrands} accessibilityLabel="Loading Spinner" />
+        <Loader show={loadingBrands} />
 
       </Container>
     );
