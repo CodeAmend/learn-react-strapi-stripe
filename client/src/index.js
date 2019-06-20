@@ -14,13 +14,13 @@ import registerServiceWorker from './registerServiceWorker';
 const Root = () => (
   <Router>
     <React.Fragment>
-    <Navbar />
-    <Switch>
-      <Route component={SignIn} path="/signin" />
-      <Route component={SignUp} path="/signup" />
-      <Route component={Checkout} path="/checkout" />
-      <Route component={App} path="/" />
-    </Switch>
+      <Navbar />
+      <Switch>
+        <Route component={SignIn} path="/signin" />
+        <Route component={SignUp} path="/signup" />
+        <Route component={Checkout} path="/checkout" />
+        <Route component={App} path="/" />
+      </Switch>
   </React.Fragment>
   </Router>
 );
