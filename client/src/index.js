@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import "gestalt/dist/gestalt.css";
 
 import App from './components/App';
+import Brews from './components/Brews';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import Checkout from './components/Checkout';
@@ -19,6 +20,7 @@ const Root = () => (
         <Route component={SignIn} path="/signin" />
         <Route component={SignUp} path="/signup" />
         <Route component={Checkout} path="/checkout" />
+        <Route component={Brews} path="/:brandId" />
         <Route component={App} path="/" />
       </Switch>
   </React.Fragment>
