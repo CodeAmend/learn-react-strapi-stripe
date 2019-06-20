@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Strapi from 'strapi-sdk-javascript/build/main';
-import { Container, Box, Heading, Image, Card, Text } from 'gestalt';
+import { Container, Box, Heading, Image, Card, Text, SearchField, Icon } from 'gestalt';
 import { Link } from 'react-router-dom';
 
 import './App.css';
@@ -10,7 +10,7 @@ const strapi = new Strapi(apiUrl);
 
 class App extends Component {
 
-  state = { brands: [] };
+  state = { brands: [], searchTerm: '', filteredBrands: [] };
 
   async componentDidMount() {
     try {
@@ -38,11 +38,40 @@ class App extends Component {
       /* handle error */
     }
   }
+
+  handleChange = ({ value }) => {
+    this.setState({ searchTerm: value });
+  }
+
+  filterBrands = ({ brands, filteredBrands, searchTerm }) => {
+    return brands.filter(({ name }) => {
+      name = name.toLowerCase();
+      searchTerm = searchTerm.toLowerCase();
+      return name.includes(searchTerm);
+    });
+  }
+
   render() {
-    const { brands } = this.state;
-    console.log(brands);
+    const { searchTerm } = this.state;
     return (
       <Container>
+        {/* Brands Search Field */}
+        <Box display="flex" justifyContent="center" marginTop={4}>
+          <SearchField
+            id="searchField"
+            accessibilityLabel="Brands Search Field"
+            onChange={this.handleChange}
+            placeholder="Search Brands"
+          />
+          <Box margin={2}>
+            <Icon 
+              icon="filter"
+              color={searchTerm ? "orange" : "gray" }
+              size={20}
+              accessibilityLabel="Filter Search"
+            />
+          </Box>
+        </Box>
         {/* Brands Section */}
         <Box display="flex" justifyContent="center" marginBottom={2}>
           {/* Brands Header */}
@@ -63,7 +92,7 @@ class App extends Component {
             }
           }}
         >
-          {brands.map(brand => (
+          {this.filterBrands(this.state).map(brand => (
             <Box 
               key ={brand._id}
               margin={2}
