@@ -15,7 +15,7 @@ class Navbar extends React.Component {
         height={70}
         color="midnight"
         padding={1}
-        shape="roundabout"
+        shape="rounded"
       >
         {/* Sign In Link */}
         <NavLink activeClassName="active" to="/signin">
