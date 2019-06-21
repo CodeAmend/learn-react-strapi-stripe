@@ -2,7 +2,6 @@ import React from 'react';
 import { Box } from 'gestalt';
 import { PacmanLoader } from 'react-spinners';
 
-console.log(PacmanLoader);
 
 const Loader = ({ show }) => (
   show && <Box
